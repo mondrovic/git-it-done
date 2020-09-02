@@ -10,10 +10,18 @@ var getUserRepos = function(user){
 
     //make request to url
     fetch(apiUrl).then(function(response){
-        response.json().then(function(data){
-            // create callback to send to displayRepos
-            displayRepos(data, user);
-        });
+      // request was successful
+        if (response.ok){
+            response.json().then(function(data){
+                displayRepos(data, user);
+            });
+        } else{
+            alert("Error: " + response.statusText);
+        }
+    })
+    // add catch to check if there's a network issue. Goes after the .then method
+    .catch(function(error){
+        alert("Unable to connect to GitHub");
     });
 };
 
@@ -34,8 +42,12 @@ var formSubmitHandler = function(){
 
 //create fourth
 var displayRepos = function(repos, searchTerm){
-    console.log(repos);
-    console.log(searchTerm);
+    // checks if api returned any repos and stops execution with return variable
+    if (repos.length === 0){
+        repoContainerEl.textContent = 'No repositories found.';
+        return;
+    };
+
     // empties out any previous text and adds username to header
     repoContainerEl.textContent = '';
     repoSearchTerm.textContent = searchTerm;
