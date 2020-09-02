@@ -3,7 +3,7 @@ var nameInputEl = document.querySelector('#username');
 var repoContainerEl = document.querySelector('#repos-container');
 var repoSearchTerm = document.querySelector('#repo-search-term')
 
-// create first
+// create first ** edit to make sure 200 request and network status is okay
 var getUserRepos = function(user){
     //format the github api url
     var apiUrl = 'https://api.github.com/users/' + user + '/repos';
@@ -40,7 +40,7 @@ var formSubmitHandler = function(){
     }
 }
 
-//create fourth
+//create fourth ** edit to check if any repos
 var displayRepos = function(repos, searchTerm){
     // checks if api returned any repos and stops execution with return variable
     if (repos.length === 0){
